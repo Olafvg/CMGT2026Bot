@@ -24,16 +24,26 @@ GIVE_ROLE_ID = 1484223681910673408
 
 @bot.event
 async def on_member_update(before, after):
-    before_roles = set(before.roles)
-    after_roles = set(after.roles)
+    before_ids = {role.id for role in before.roles}
+    after_ids = {role.id for role in after.roles}
 
-    # Roles that were added
-    added_roles = after_roles - before_roles
+    added_ids = after_ids - before_ids
+
+    if not (added_ids & TARGET_ROLE_IDS):
+        return
+
+    if GIVE_ROLE_ID in added_ids:
+        return
+
     role_to_add = after.guild.get_role(GIVE_ROLE_ID)
 
-    if any(role.id in TARGET_ROLE_IDS for role in added_roles):
-        if role_to_add and role_to_add not in after.roles:
+    if role_to_add and role_to_add not in after.roles:
+        try:
             await after.add_roles(role_to_add, reason="Auto role assignment")
+        except discord.Forbidden:
+            print("Missing permissions")
+        except discord.HTTPException as e:
+            print(f"HTTP error: {e}")
 
 webserver.keep_alive()
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
