@@ -2,8 +2,8 @@ version: "3.8"
 
 services:
   app:
-    image: yourusername/my-python-app:latest
-    container_name: my-app
+    image: OlafvG/CGMT2026Bot:latest
+    container_name: CGMT2026Bot
     restart: always
     env_file:
       - .env
