@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  app:
+    image: yourusername/my-python-app:latest
+    container_name: my-app
+    restart: always
+    env_file:
+      - .env
