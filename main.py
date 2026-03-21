@@ -15,14 +15,19 @@ intents.members = True
 bot = commands.Bot(command_prefix='/', intents=intents)
 
 TARGET_ROLE_IDS = {
-    1406759995751661709,
-    987654321098765432,
-    555555555555555555
+    1484252666623164476,
+    1484252688928608329,
+    1484252718418759700
 }
-GIVE_ROLE_ID = 1484223681910673408
+GIVE_ROLE_ID = 1484255527986004000
 
 @bot.event
 async def on_member_update(before, after):
+    give_outsiders_on_role_change(before, after)
+
+bot.run(token, log_handler=handler, log_level=logging.DEBUG)
+
+async def give_outsiders_on_role_change(before, after):
     before_ids = {role.id for role in before.roles}
     after_ids = {role.id for role in after.roles}
 
@@ -43,5 +48,3 @@ async def on_member_update(before, after):
             print("Missing permissions")
         except discord.HTTPException as e:
             print(f"HTTP error: {e}")
-
-bot.run(token, log_handler=handler, log_level=logging.DEBUG)
