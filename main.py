@@ -23,9 +23,7 @@ GIVE_ROLE_ID = 1484255527986004000
 
 @bot.event
 async def on_member_update(before, after):
-    give_outsiders_on_role_change(before, after)
-
-bot.run(token, log_handler=handler, log_level=logging.DEBUG)
+    await give_outsiders_on_role_change(before, after)
 
 async def give_outsiders_on_role_change(before, after):
     before_ids = {role.id for role in before.roles}
@@ -48,3 +46,5 @@ async def give_outsiders_on_role_change(before, after):
             print("Missing permissions")
         except discord.HTTPException as e:
             print(f"HTTP error: {e}")
+
+bot.run(token, log_handler=handler, log_level=logging.DEBUG)
