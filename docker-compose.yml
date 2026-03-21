@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   app:
-    image: OlafvG/CGMT2026Bot:latest
+    image: OlafvG/cgmt026bot:latest
     container_name: CGMT2026Bot
     restart: always
     env_file:
