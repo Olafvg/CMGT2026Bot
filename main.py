@@ -3,10 +3,9 @@ from discord.ext import commands
 import logging
 from dotenv import load_dotenv
 import os
-import webserver
 
 load_dotenv()
-token = os.getenv("DISCORD_TOKEN")
+token = os.getenv("CGMT2026Bot_DISCORD_TOKEN")
 
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 intents = discord.Intents.default()
@@ -45,5 +44,4 @@ async def on_member_update(before, after):
         except discord.HTTPException as e:
             print(f"HTTP error: {e}")
 
-webserver.keep_alive()
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
