@@ -4,6 +4,7 @@ import logging
 from dotenv import load_dotenv
 import os
 import scripts.outsiders as outsiders
+import scripts.SixSevenStas as SixSeven
 
 load_dotenv()
 token = os.getenv("CGMT2026Bot_DISCORD_TOKEN")
@@ -14,6 +15,10 @@ intents.message_content = True
 intents.members = True
 
 bot = commands.Bot(command_prefix='/', intents=intents)
+
+@bot.event 
+async def on_message(message):
+    await SixSeven.ping_stas(message)
 
 @bot.event
 async def on_member_update(before, after):
