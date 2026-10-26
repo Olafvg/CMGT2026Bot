@@ -3,8 +3,10 @@ from discord.ext import commands
 import logging
 from dotenv import load_dotenv
 import os
+
 import scripts.outsiders as outsiders
 import scripts.SixSevenStas as SixSeven
+import scripts.Grok as Grok
 
 load_dotenv()
 token = os.getenv("CGMT2026Bot_DISCORD_TOKEN")
@@ -19,6 +21,7 @@ bot = commands.Bot(command_prefix='/', intents=intents)
 @bot.event 
 async def on_message(message):
     await SixSeven.ping_stas(message)
+    await Grok.grok(message)
 
 @bot.event
 async def on_member_update(before, after):
